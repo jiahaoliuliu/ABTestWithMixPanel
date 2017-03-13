@@ -28,7 +28,7 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
 
     // Mixpanel integration
-    compile "com.mixpanel.android:mixpanel-android:4.+"
+    compile "com.mixpanel.android:mixpanel-android:4.9.7"
     compile "com.google.android.gms:play-services:7.5.0+"
 
     testCompile 'junit:junit:4.12'
