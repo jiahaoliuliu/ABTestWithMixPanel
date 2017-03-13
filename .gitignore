@@ -34,7 +34,10 @@ captures/
 
 # Intellij
 *.iml
-.idea/workspace.xml
+.idea/
 
 # Keystore files
 *.jks
+
+#Secret files
+app/src/main/java/com/jiahaoliuliu/abtestwithmixpanel/APIToken.java
