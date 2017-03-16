@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
     // A/B test values
     private static Tweak<Boolean> showAds = MixpanelAPI.booleanTweak("Show ads", false);
+    private static Tweak<Boolean> showWarning = MixpanelAPI.booleanTweak("Show warning", false);
 
     // Views
     private TextView mTitleTextView;
@@ -49,8 +50,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getABTest() {
+        Log.d(TAG, "Checking AB test values: ShowAds: " + showAds.get() + ", showWarning: " +
+            showWarning.get());
+
         if (showAds.get()) {
             mTitleTextView.setText("Buy 100g of Chicke for 20AED!");
+        } else if (showWarning.get()) {
+            mTitleTextView.setText("Warning! You don't have more money!");
         } else {
             mTitleTextView.setText("Have a good day!");
         }
