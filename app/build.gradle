@@ -31,5 +31,7 @@ dependencies {
     compile "com.mixpanel.android:mixpanel-android:4.9.7"
     compile "com.google.android.gms:play-services:7.5.0+"
 
+    compile 'com.android.support:design:25.2.0'
+
     testCompile 'junit:junit:4.12'
 }
