@@ -16,8 +16,6 @@ public class DetailsActivity extends AppCompatActivity {
 
     private static final String TAG = "DetailsActivity";
 
-    private TextView mShowAdsTV;
-    private TextView mShowWarningsTV;
     private TextView mTitleTextView;
 
     private AbTestManager mAbTestManager;
@@ -29,8 +27,6 @@ public class DetailsActivity extends AppCompatActivity {
 
         // Link the views
         mTitleTextView = (TextView) findViewById(R.id.title);
-        mShowAdsTV = (TextView) findViewById(R.id.show_ads_tv);
-        mShowWarningsTV = (TextView) findViewById(R.id.show_warnings_tv);
 
         mAbTestManager = new AbTestManager();
 

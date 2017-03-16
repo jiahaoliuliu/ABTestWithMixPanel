@@ -30,10 +30,6 @@ public class MainActivity extends AppCompatActivity {
     private Context mContext;
     private AbTestManager mAbTestManager;
 
-    // A/B test values
-    private Tweak<Boolean> showAds = MixpanelAPI.booleanTweak("Show ads", false);
-    private Tweak<Boolean> showWarning = MixpanelAPI.booleanTweak("Show warning", false);
-
     // Views
     private TextView mShowAdsTV;
     private TextView mShowWarningsTV;
@@ -86,8 +82,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-        refreshContent();
     }
 
     private void sendDummyEvent() {
@@ -98,28 +92,6 @@ public class MainActivity extends AppCompatActivity {
             mixpanel.track("MainActivity - onCreate called", props);
         } catch (JSONException e) {
             Log.e(TAG, "Unable to add properties to JSONObject", e);
-        }
-    }
-
-    private void refreshContent() {
-        showAds = MixpanelAPI.booleanTweak("Show ads", false);
-        showWarning = MixpanelAPI.booleanTweak("Show warning", false);
-        getABTest();
-    }
-
-    private void getABTest() {
-        Log.d(TAG, "Checking AB test values: ShowAds: " + showAds.get() + ", showWarning: " +
-            showWarning.get());
-
-        mShowAdsTV.setText("Show ads: " + showAds.get());
-        mShowWarningsTV.setText("Show warnings: " + showWarning.get());
-
-        if (showAds.get()) {
-            mTitleTextView.setText("Buy 100g of Chicke for 20AED!");
-        } else if (showWarning.get()) {
-            mTitleTextView.setText("Warning! You don't have more money!");
-        } else {
-            mTitleTextView.setText("Have a good day!");
         }
     }
 
