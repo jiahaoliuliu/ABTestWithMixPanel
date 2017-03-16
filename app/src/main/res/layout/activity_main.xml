@@ -34,18 +34,18 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/refresh_btn"
+        android:id="@+id/send_event_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@+id/title"
-        android:text="Refresh"
+        android:text="Send event"
         />
 
     <Button
         android:id="@+id/details_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/refresh_btn"
+        app:layout_constraintTop_toBottomOf="@+id/send_event_btn"
         android:text="Details"
         />
 </android.support.constraint.ConstraintLayout>

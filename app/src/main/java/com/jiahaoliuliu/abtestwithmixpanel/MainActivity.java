@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "ABTestWithMixPanel";
     private MixpanelAPI mixpanel;
     private Context mContext;
+    private AbTestManager mAbTestManager;
 
     // A/B test values
     private Tweak<Boolean> showAds = MixpanelAPI.booleanTweak("Show ads", false);
@@ -29,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView mShowAdsTV;
     private TextView mShowWarningsTV;
     private TextView mTitleTextView;
-    private Button mRefreshButton;
+    private Button mSendEventButton;
     private Button mDetailsButton;
 
     @Override
@@ -39,18 +41,24 @@ public class MainActivity extends AppCompatActivity {
 
         // Init variables
         mixpanel = MixpanelAPI.getInstance(this, APIToken.MIX_PANEL_TOKEN);
+        TelephonyManager tManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+        mixpanel.identify(tManager.getDeviceId());
+
+        mixpanel.getPeople().identify(tManager.getDeviceId());
+
         mContext = this;
+        mAbTestManager = new AbTestManager();
 
         // Link the views
         mTitleTextView = (TextView) findViewById(R.id.title);
         mShowAdsTV = (TextView) findViewById(R.id.show_ads_tv);
         mShowWarningsTV = (TextView) findViewById(R.id.show_warnings_tv);
-        mRefreshButton = (Button) findViewById(R.id.refresh_btn);
-        mRefreshButton.setOnClickListener(new View.OnClickListener(){
+        mSendEventButton = (Button) findViewById(R.id.send_event_btn);
+        mSendEventButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 // Refresh the content
-                refreshContent();
+                sendDummyEvent();
             }
         });
 
@@ -61,10 +69,13 @@ public class MainActivity extends AppCompatActivity {
                 openDetails();
             }
         });
+    }
 
-//        sendDummyEvent();
+    @Override
+    protected void onResume() {
+        super.onResume();
 
-        getABTest();
+        refreshContent();
     }
 
     private void sendDummyEvent() {

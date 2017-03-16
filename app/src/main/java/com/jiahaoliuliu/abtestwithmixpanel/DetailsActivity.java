@@ -16,13 +16,11 @@ public class DetailsActivity extends AppCompatActivity {
 
     private static final String TAG = "DetailsActivity";
 
-    // A/B test values
-    private Tweak<Boolean> showAds = MixpanelAPI.booleanTweak("Show ads details", false);
-    private Tweak<Boolean> showWarning = MixpanelAPI.booleanTweak("Show warning details", false);
-
     private TextView mShowAdsTV;
     private TextView mShowWarningsTV;
     private TextView mTitleTextView;
+
+    private AbTestManager mAbTestManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,23 +32,28 @@ public class DetailsActivity extends AppCompatActivity {
         mShowAdsTV = (TextView) findViewById(R.id.show_ads_tv);
         mShowWarningsTV = (TextView) findViewById(R.id.show_warnings_tv);
 
+        mAbTestManager = new AbTestManager();
+
         getABTest();
     }
 
 
     private void getABTest() {
-        Log.d(TAG, "Checking AB test values: ShowAds details: " + showAds.get() + ", showWarning details: " +
-                showWarning.get());
+        AbTestManager.AbTestResult abTestResult = mAbTestManager.getAbTestResult();
 
-        mShowAdsTV.setText("Show ads details: " + showAds.get());
-        mShowWarningsTV.setText("Show warnings details: " + showWarning.get());
+        Log.d(TAG, "The ab test result is " + abTestResult);
 
-        if (showAds.get()) {
-            mTitleTextView.setText("Buy 100g of Chicke for 20AED!");
-        } else if (showWarning.get()) {
-            mTitleTextView.setText("Warning! You don't have more money!");
-        } else {
-            mTitleTextView.setText("Have a good day!");
+        switch (abTestResult) {
+            case SHOW_ADS_DETAILS:
+                mTitleTextView.setText("Buy 100g of Chicke for 20AED!");
+                break;
+            case SHOW_WARNING:
+                mTitleTextView.setText("Warning! You don't have more money!");
+                break;
+            default:
+            case DEFAULT:
+                mTitleTextView.setText("Have a good day!");
+                break;
         }
     }
 
