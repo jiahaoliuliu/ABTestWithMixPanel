@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     >
 
@@ -11,22 +10,23 @@
         tools:context="com.jiahaoliuliu.abtestwithmixpanel.MainActivity"
         android:orientation="vertical"
         android:gravity="center"
+        android:padding="20dp"
         >
 
         <Button
             android:id="@+id/details_btn"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/send_event_btn"
             android:text="Details"
+            android:layout_margin="10dp"
             />
 
         <Button
             android:id="@+id/send_event_btn"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/title"
             android:text="Send event"
+            android:layout_margin="10dp"
             />
     </LinearLayout>
 </layout>
