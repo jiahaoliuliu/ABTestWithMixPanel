@@ -26,7 +26,9 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int REQUEST_READ_PHONE_STATE = 1;
 
+    // Internal variables
     private MixpanelAPI mixpanel;
+    private AbTestManager abTestManager;
 
     // Views
     private ActivityMainBinding activityMainBinding;
@@ -39,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
 
         // Init variables
         mixpanel = MixpanelAPI.getInstance(this, APIToken.MIX_PANEL_TOKEN);
+        // Init AbTest manager. This is mainly to
+        abTestManager = new AbTestManager();
 
         // Link the views
         activityMainBinding.detailsBtn.setOnClickListener(v -> openDetails());

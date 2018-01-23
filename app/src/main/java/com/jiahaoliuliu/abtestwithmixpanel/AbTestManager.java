@@ -18,9 +18,9 @@ public class AbTestManager {
     }
 
     // A/B test values
-    private Tweak<Boolean> isAbTestRunning = MixpanelAPI.booleanTweak("Is ab test running", false);
-    private Tweak<Boolean> showAdsDetails = MixpanelAPI.booleanTweak("Show ads details", false);
-    private Tweak<Boolean> showWarningDetails = MixpanelAPI.booleanTweak("Show warning details", false);
+    private static Tweak<Boolean> isAbTestRunning = MixpanelAPI.booleanTweak("Is ab test running", false);
+    private static Tweak<Boolean> showAdsDetails = MixpanelAPI.booleanTweak("Show ads details", false);
+    private static Tweak<Boolean> showWarningDetails = MixpanelAPI.booleanTweak("Show warning details", false);
 
     public AbTestManager() {}
 
