@@ -1,21 +1,20 @@
 package com.jiahaoliuliu.abtestwithmixpanel;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.mixpanel.android.mpmetrics.MixpanelAPI;
-import com.mixpanel.android.mpmetrics.Tweak;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,12 +27,8 @@ public class MainActivity extends AppCompatActivity {
 
     private MixpanelAPI mixpanel;
     private Context mContext;
-    private AbTestManager mAbTestManager;
 
     // Views
-    private TextView mShowAdsTV;
-    private TextView mShowWarningsTV;
-    private TextView mTitleTextView;
     private Button mSendEventButton;
     private Button mDetailsButton;
 
@@ -46,12 +41,8 @@ public class MainActivity extends AppCompatActivity {
         mixpanel = MixpanelAPI.getInstance(this, APIToken.MIX_PANEL_TOKEN);
 
         mContext = this;
-        mAbTestManager = new AbTestManager();
 
         // Link the views
-        mTitleTextView = (TextView) findViewById(R.id.title);
-        mShowAdsTV = (TextView) findViewById(R.id.show_ads_tv);
-        mShowWarningsTV = (TextView) findViewById(R.id.show_warnings_tv);
         mSendEventButton = (Button) findViewById(R.id.send_event_btn);
         mSendEventButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -100,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(startDetailsIntent);
     }
 
+    @SuppressLint("MissingPermission")
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
