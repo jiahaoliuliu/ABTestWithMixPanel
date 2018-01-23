@@ -12,6 +12,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.view.View;
 
 import com.jiahaoliuliu.abtestwithmixpanel.databinding.ActivityMainBinding;
 import com.mixpanel.android.mpmetrics.MixpanelAPI;
@@ -26,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_READ_PHONE_STATE = 1;
 
     private MixpanelAPI mixpanel;
-    private Context mContext;
 
     // Views
     private ActivityMainBinding activityMainBinding;
@@ -39,8 +39,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Init variables
         mixpanel = MixpanelAPI.getInstance(this, APIToken.MIX_PANEL_TOKEN);
-
-        mContext = this;
 
         // Link the views
         activityMainBinding.detailsBtn.setOnClickListener(v -> openDetails());
@@ -57,18 +55,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void sendDummyEvent() {
+        activityMainBinding.eventSentNotification.setVisibility(View.GONE);
+
         try {
             JSONObject props = new JSONObject();
             props.put("Gender", "Female");
             props.put("Logged in", false);
             mixpanel.track("MainActivity - onCreate called", props);
+
+            // Notify to the user
+            activityMainBinding.eventSentNotification.setVisibility(View.VISIBLE);
         } catch (JSONException e) {
             Log.e(TAG, "Unable to add properties to JSONObject", e);
         }
     }
 
     private void openDetails() {
-        Intent startDetailsIntent = new Intent(mContext, DetailsActivity.class);
+        Intent startDetailsIntent = new Intent(MainActivity.this, DetailsActivity.class);
         startActivity(startDetailsIntent);
     }
 
