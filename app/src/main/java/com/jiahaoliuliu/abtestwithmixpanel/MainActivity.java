@@ -5,14 +5,15 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
 import android.util.Log;
-import android.widget.Button;
 
+import com.jiahaoliuliu.abtestwithmixpanel.databinding.ActivityMainBinding;
 import com.mixpanel.android.mpmetrics.MixpanelAPI;
 
 import org.json.JSONException;
@@ -28,13 +29,13 @@ public class MainActivity extends AppCompatActivity {
     private Context mContext;
 
     // Views
-    private Button mSendEventButton;
-    private Button mDetailsButton;
+    private ActivityMainBinding activityMainBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
+        activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         // Init variables
         mixpanel = MixpanelAPI.getInstance(this, APIToken.MIX_PANEL_TOKEN);
@@ -42,11 +43,8 @@ public class MainActivity extends AppCompatActivity {
         mContext = this;
 
         // Link the views
-        mSendEventButton = (Button) findViewById(R.id.send_event_btn);
-        mSendEventButton.setOnClickListener(v -> sendDummyEvent());
-
-        mDetailsButton = (Button) findViewById(R.id.details_btn);
-        mDetailsButton.setOnClickListener(v -> openDetails());
+        activityMainBinding.detailsBtn.setOnClickListener(v -> openDetails());
+        activityMainBinding.sendEventBtn.setOnClickListener(v -> sendDummyEvent());
 
         // Request for permission
         int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE);
@@ -56,11 +54,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             //TODO
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
     }
 
     private void sendDummyEvent() {
