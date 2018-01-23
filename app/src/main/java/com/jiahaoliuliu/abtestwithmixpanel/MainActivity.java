@@ -11,7 +11,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 
 import com.mixpanel.android.mpmetrics.MixpanelAPI;
@@ -44,21 +43,10 @@ public class MainActivity extends AppCompatActivity {
 
         // Link the views
         mSendEventButton = (Button) findViewById(R.id.send_event_btn);
-        mSendEventButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                // Refresh the content
-                sendDummyEvent();
-            }
-        });
+        mSendEventButton.setOnClickListener(v -> sendDummyEvent());
 
         mDetailsButton = (Button) findViewById(R.id.details_btn);
-        mDetailsButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                openDetails();
-            }
-        });
+        mDetailsButton.setOnClickListener(v -> openDetails());
 
         // Request for permission
         int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE);
